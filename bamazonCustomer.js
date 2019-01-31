@@ -90,7 +90,7 @@ function finalize() {
             }
         ]).then(function (res) {
             if (res.wishToContinue == "YES") {
-                displayItems();
+                first();
             } else {
                 console.log("Thank you for you order.");
                 return;
