@@ -67,18 +67,36 @@ function selectItem() {
                         }, {
                             item_id: res.pickYourItem
                         }], function () {
-                            console.log(divider + "Your order of " + res.howMany + " " + result[0].product_name + " has been placed!");
+                            console.log(divider + "Your order is " + res.howMany + " " + result[0].product_name + " has been placed!");
                             console.log("Your total is :" + res.howMany * result[0].price + " USD!" + divider);
-                            decision();
+                            finalize();
                         })
                 } else {
-                    console.log(divider + "Sorry, it seems that we do not have enough " + result[0].product_name
-                        + ". But we have other specials!" + divider);
-                    decision();
+                    console.log(divider + "Unfortunately it seems there isn't enought" + result[0].product_name
+                        + " to fulfill your order" + divider);
+                    finalize();
                 }
             })
         })
 }
 
+function finalize() {
+    inquirer
+        .prompt([
+            {
+                name: "wishToContinue",
+                message: "Do you want to continue shopping?",
+                type: "list",
+                choices: ["YES", "NO"]
+            }
+        ]).then(function (res) {
+            if (res.wishToContinue == "YES") {
+                displayItems();
+            } else {
+                console.log("Thank you for shopping at Simon's bamazon");
+                return;
+            }
+        })
+}
 
 
