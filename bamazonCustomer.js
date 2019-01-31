@@ -2,7 +2,6 @@ require("dotenv").config();
 
 var mysql = require("mysql");
 var inquirer = require("inquirer")
-var dataArr
 var connection = mysql.createConnection({
     host: "localhost",
 
@@ -67,13 +66,13 @@ function selectItem() {
                         }, {
                             item_id: res.pickYourItem
                         }], function () {
-                            console.log(divider + "Your order is " + res.howMany + " " + result[0].product_name + " has been placed!");
-                            console.log("Your total is :" + res.howMany * result[0].price + " USD!" + divider);
+                            console.log("Your order of " + res.howMany + " " + result[0].product_name + " has been placed!");
+                            console.log("Your total is : $" + res.howMany * result[0].price + " dollars");
                             finalize();
                         })
                 } else {
-                    console.log(divider + "Unfortunately it seems there isn't enought" + result[0].product_name
-                        + " to fulfill your order" + divider);
+                    console.log("Unfortunately it seems there isn't enought" + result[0].product_name
+                        + " in stock to fulfill your order");
                     finalize();
                 }
             })
@@ -85,7 +84,7 @@ function finalize() {
         .prompt([
             {
                 name: "wishToContinue",
-                message: "Do you want to continue shopping?",
+                message: "Continue shopping?",
                 type: "list",
                 choices: ["YES", "NO"]
             }
@@ -93,10 +92,10 @@ function finalize() {
             if (res.wishToContinue == "YES") {
                 displayItems();
             } else {
-                console.log("Thank you for shopping at Simon's bamazon");
+                console.log("Thank you for you order.");
                 return;
             }
-        })
+        });
 }
 
 
